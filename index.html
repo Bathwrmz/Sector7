@@ -10,57 +10,255 @@
     content="Sector 7 (EXL7D) is a casual, helpful, fun Free Company on Dynamis/Kraken. Actively recruiting with no strict requirements."
   />
 
-  <!-- CSS will be added later -->
+  <!-- We'll add real styling in styles.css later -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
+<body style="margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:#111;">
 
-  <!-- HERO / HEADER -->
-  <header id="hero">
+  <!-- HERO -->
+  <header id="top" style="position:relative;">
     <img
       src="/assets/hero-header.jpg"
-      alt="Sector 7 Free Company group screenshot in Final Fantasy XIV"
+      alt="Sector 7 Free Company hero image"
       width="1920"
       height="900"
+      style="display:block; width:100%; height:auto;"
     />
 
-    <div class="hero-content">
-      <h1>Sector 7 <span>(EXL7D)</span></h1>
-      <p class="subtitle">Final Fantasy XIV Free Company</p>
+    <!-- Overlay box -->
+    <div style="
+      position:absolute; inset:auto 0 0 0;
+      padding:28px 18px;
+      background: linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,0));
+      color:#fff;
+    ">
+      <div style="max-width:1000px; margin:0 auto;">
+        <h1 style="margin:0; font-size:42px; line-height:1.05;">
+          Sector 7 <span style="font-size:20px; opacity:.9;">(EXL7D)</span>
+        </h1>
+        <p style="margin:10px 0 0 0; font-size:16px; opacity:.95;">
+          Dynamis / Kraken • Casual • Helpful • Fun • Actively Recruiting
+        </p>
 
-      <p class="tagline">
-        Casual • Helpful • Fun
-      </p>
+        <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:10px;">
+          <a href="#discord" style="
+            display:inline-block; padding:10px 14px;
+            background:#ffffff; color:#111; text-decoration:none; border-radius:10px;
+            font-weight:700;
+          ">Join Discord</a>
 
-      <p class="description">
-        Sector 7 is an actively recruiting Free Company on
-        <strong>Dynamis / Kraken</strong>.
-        No strict gaming requirements — just enjoy the game and have fun together.
-      </p>
+          <a href="#about" style="
+            display:inline-block; padding:10px 14px;
+            background:rgba(255,255,255,.14); color:#fff; text-decoration:none;
+            border:1px solid rgba(255,255,255,.25);
+            border-radius:10px; font-weight:700;
+          ">Learn More</a>
 
-      <div class="quick-info">
-        <p><strong>FC House:</strong> Lavender Beds — Ward 18, Plot 1</p>
-      </div>
-
-      <div class="cta">
-        <a
-          href="https://discord.gg/jT2TEwsd"
-          target="_blank"
-          rel="noopener"
-        >
-          Join Our Discord
-        </a>
+          <a href="#join" style="
+            display:inline-block; padding:10px 14px;
+            background:rgba(255,255,255,.14); color:#fff; text-decoration:none;
+            border:1px solid rgba(255,255,255,.25);
+            border-radius:10px; font-weight:700;
+          ">How to Join</a>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>
-      Sector 7 (EXL7D) — Dynamis / Kraken<br />
-      Final Fantasy XIV
-    </p>
+  <!-- NAV (simple anchor nav) -->
+  <nav style="background:#0f172a; color:#fff;">
+    <div style="max-width:1000px; margin:0 auto; padding:12px 18px; display:flex; gap:14px; flex-wrap:wrap;">
+      <a href="#about" style="color:#fff; text-decoration:none; opacity:.92;">About</a>
+      <a href="#mission" style="color:#fff; text-decoration:none; opacity:.92;">Mission</a>
+      <a href="#discord" style="color:#fff; text-decoration:none; opacity:.92;">Discord</a>
+      <a href="#house" style="color:#fff; text-decoration:none; opacity:.92;">FC House</a>
+      <a href="#recruitment" style="color:#fff; text-decoration:none; opacity:.92;">Recruitment</a>
+      <a href="#join" style="color:#fff; text-decoration:none; opacity:.92;">Join</a>
+    </div>
+  </nav>
+
+  <!-- ABOUT -->
+  <section id="about" style="background:#f8fafc; padding:54px 0;">
+    <div style="max-width:1000px; margin:0 auto; padding:0 18px;">
+      <h2 style="margin:0 0 10px 0; font-size:32px;">About Sector 7</h2>
+      <p style="margin:0 0 22px 0; font-size:18px; line-height:1.6; color:#1f2937;">
+        Sector 7 (EXL7D) is a casual Free Company on Dynamis / Kraken built around being helpful,
+        staying chill, and having fun together. Whether you’re brand new, returning, or a long-time
+        player — you’ve got a place here.
+      </p>
+
+      <div style="display:flex; flex-wrap:wrap; gap:18px; align-items:center;">
+        <img
+          src="/assets/about-image.jpg"
+          alt="Sector 7 members hanging out"
+          width="800"
+          height="500"
+          style="width:min(480px, 100%); height:auto; border-radius:14px;"
+        />
+
+        <div style="flex:1; min-width:260px;">
+          <div style="background:#ffffff; border:1px solid #e5e7eb; border-radius:14px; padding:16px;">
+            <h3 style="margin:0 0 8px 0; font-size:20px;">What you’ll find here</h3>
+            <ul style="margin:0; padding-left:18px; line-height:1.75; color:#374151;">
+              <li>Friendly people who answer questions</li>
+              <li>Low-pressure group activities</li>
+              <li>A community that respects real life</li>
+              <li>No strict gaming requirements</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section id="mission" style="background:#111827; padding:54px 0; color:#fff;">
+    <div style="max-width:1000px; margin:0 auto; padding:0 18px;">
+      <h2 style="margin:0 0 10px 0; font-size:32px;">Our Mission</h2>
+      <p style="margin:0 0 26px 0; font-size:18px; line-height:1.6; opacity:.92;">
+        Build a relaxed, welcoming home for players on Kraken — where it’s easy to find people to run content with,
+        learn at your pace, and enjoy the game without pressure.
+      </p>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:14px;">
+        <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:16px;">
+          <h3 style="margin:0 0 6px 0;">Be Helpful</h3>
+          <p style="margin:0; opacity:.9; line-height:1.6;">Answer questions, share tips, and help each other grow.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:16px;">
+          <h3 style="margin:0 0 6px 0;">Keep it Casual</h3>
+          <p style="margin:0; opacity:.9; line-height:1.6;">Real life comes first. Play when you can.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:16px;">
+          <h3 style="margin:0 0 6px 0;">Have Fun</h3>
+          <p style="margin:0; opacity:.9; line-height:1.6;">Laugh, learn, and enjoy the journey—wins and wipes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCORD -->
+  <section id="discord" style="background:#eef2ff; padding:54px 0;">
+    <div style="max-width:1000px; margin:0 auto; padding:0 18px;">
+      <h2 style="margin:0 0 10px 0; font-size:32px;">Discord</h2>
+      <p style="margin:0 0 20px 0; font-size:18px; line-height:1.6; color:#1f2937;">
+        Discord is the best way to meet the FC, ask questions, and stay updated on events.
+      </p>
+
+      <div style="display:flex; flex-wrap:wrap; gap:18px; align-items:center;">
+        <img
+          src="/assets/discord-card.png"
+          alt="Discord graphic"
+          width="600"
+          height="360"
+          style="width:min(420px, 100%); height:auto; border-radius:14px;"
+        />
+
+        <div style="flex:1; min-width:260px;">
+          <div style="background:#ffffff; border:1px solid #e5e7eb; border-radius:14px; padding:18px;">
+            <p style="margin:0 0 14px 0; color:#374151; line-height:1.7;">
+              Click below to join. Introduce yourself and tell us what you enjoy doing in FFXIV.
+            </p>
+
+            <a
+              href="https://discord.gg/jT2TEwsd"
+              target="_blank"
+              rel="noopener"
+              style="
+                display:inline-block; padding:12px 16px;
+                background:#4f46e5; color:#fff; text-decoration:none;
+                border-radius:12px; font-weight:800;
+              "
+            >Join Sector 7 Discord</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FC HOUSE -->
+  <section id="house" style="background:#fff7ed; padding:54px 0;">
+    <div style="max-width:1000px; margin:0 auto; padding:0 18px;">
+      <h2 style="margin:0 0 10px 0; font-size:32px;">Free Company House</h2>
+      <p style="margin:0 0 22px 0; font-size:18px; line-height:1.6; color:#1f2937;">
+        Come visit us anytime:
+        <strong>Lavender Beds — Ward 18, Plot 1</strong>
+      </p>
+
+      <img
+        src="/assets/fc-house.jpg"
+        alt="Sector 7 Free Company House in Lavender Beds"
+        width="1200"
+        height="675"
+        style="width:100%; height:auto; border-radius:14px; display:block;"
+      />
+    </div>
+  </section>
+
+  <!-- RECRUITMENT -->
+  <section id="recruitment" style="background:#ecfeff; padding:54px 0;">
+    <div style="max-width:1000px; margin:0 auto; padding:0 18px;">
+      <h2 style="margin:0 0 10px 0; font-size:32px;">Recruitment</h2>
+      <p style="margin:0 0 22px 0; font-size:18px; line-height:1.6; color:#1f2937;">
+        We’re actively recruiting and happy to welcome all experience levels.
+        No strict requirements — just be respectful and enjoy the game with us.
+      </p>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:14px;">
+        <div style="background:#ffffff; border:1px solid #e5e7eb; border-radius:14px; padding:16px;">
+          <h3 style="margin:0 0 6px 0;">New Players</h3>
+          <p style="margin:0; color:#374151; line-height:1.6;">
+            Questions welcome. We’ll help you learn and progress without pressure.
+          </p>
+        </div>
+        <div style="background:#ffffff; border:1px solid #e5e7eb; border-radius:14px; padding:16px;">
+          <h3 style="margin:0 0 6px 0;">Returning Players</h3>
+          <p style="margin:0; color:#374151; line-height:1.6;">
+            Get back into the swing of things with people who are happy to catch you up.
+          </p>
+        </div>
+        <div style="background:#ffffff; border:1px solid #e5e7eb; border-radius:14px; padding:16px;">
+          <h3 style="margin:0 0 6px 0;">Veterans</h3>
+          <p style="margin:0; color:#374151; line-height:1.6;">
+            Run content, help others, or just hang out—your pace, your fun.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section id="join" style="background:#0f172a; padding:54px 0; color:#fff;">
+    <div style="max-width:1000px; margin:0 auto; padding:0 18px;">
+      <h2 style="margin:0 0 10px 0; font-size:32px;">How to Join</h2>
+      <ol style="margin:0; padding-left:18px; line-height:1.9; opacity:.95;">
+        <li>Join our Discord.</li>
+        <li>Say hello and let us know you’re on Dynamis / Kraken.</li>
+        <li>We’ll help you with the next steps to get invited in-game.</li>
+      </ol>
+
+      <div style="margin-top:18px;">
+        <a
+          href="https://discord.gg/jT2TEwsd"
+          target="_blank"
+          rel="noopener"
+          style="
+            display:inline-block; padding:12px 16px;
+            background:#ffffff; color:#0f172a; text-decoration:none;
+            border-radius:12px; font-weight:900;
+          "
+        >Join Discord</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#0b1220; color:#cbd5e1; padding:18px 0;">
+    <div style="max-width:1000px; margin:0 auto; padding:0 18px; font-size:14px;">
+      <p style="margin:0;">
+        Sector 7 (EXL7D) • Dynamis / Kraken • Lavender Beds W18 P1
+      </p>
+    </div>
   </footer>
 
 </body>
