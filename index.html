@@ -1,853 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Sector 7 (EXL7D) | FFXIV Free Company</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="Sector 7 (EXL7D) — a welcoming Free Company on Dynamis/Kraken. Actively recruiting with no strict requirements. Join our Discord or contact us."
-  />
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sector 7 (EXL7D)</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
   <style>
     :root{
-      --bg:#0b0f14;
-      --panel:#111823;
-      --panel2:#0f172a;
-      --card:#0e1622;
-      --text:#e6e9ef;
-      --muted:#a9b3c3;
-      --line:rgba(255,255,255,.10);
-      --accent:#c63b3b;        /* stormblood crimson */
-      --accent2:#d8b25c;       /* muted brass */
-      --btn:#e8edf7;
-      --btnText:#0b0f14;
-      --shadow: 0 12px 40px rgba(0,0,0,.45);
-      --radius: 18px;
-      --radius2: 14px;
-      --max: 1080px;
+      --glass: rgba(10, 10, 14, 0.55);
+      --stroke: rgba(255,255,255,0.18);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.75);
+      --shadow: 0 18px 50px rgba(0,0,0,0.55);
+      --blur: 10px;
+      --ring: 260px; /* radius for the floating tabs */
     }
 
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--text); }
     body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 500px at 30% -10%, rgba(198,59,59,.22), transparent 60%),
-                  radial-gradient(900px 500px at 70% 0%, rgba(216,178,92,.14), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      line-height:1.55;
+      background: #000;
+      overflow-x: hidden;
     }
 
-    a{ color:inherit; }
-    .container{ max-width:var(--max); margin:0 auto; padding:0 18px; }
-
-    /* Top bar */
-    .topbar{
-      position:sticky; top:0; z-index:20;
-      background: rgba(11,15,20,.72);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
+    /* Background image */
+    .bg{
+      position: fixed; inset: 0;
+      background: url("assets/bg.jpg") center/cover no-repeat fixed;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.05);
     }
-    .topbar__inner{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 0;
-      gap:14px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px; text-decoration:none;
-      min-width: 220px;
-    }
-    .brand img{ width:34px; height:34px; border-radius:10px; }
-    .brand__text{ font-weight:900; letter-spacing:.4px; }
-    .brand__tag{ color:var(--muted); font-weight:700; margin-left:6px; }
-
-    .nav{
-      display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end;
-      font-size:14px;
-    }
-    .nav a{
-      text-decoration:none;
-      color:var(--muted);
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
-    }
-    .nav a:hover{
-      color:var(--text);
-      border-color: var(--line);
-      background: rgba(255,255,255,.04);
-    }
-
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      padding:11px 14px;
-      border-radius:14px;
-      text-decoration:none;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn--primary{
-      background: var(--btn);
-      color: var(--btnText);
-      border-color: transparent;
-    }
-    .btn--primary:hover{ filter:brightness(.95); }
-
-    /* Hero */
-    .hero{
-      position:relative;
-      padding:44px 0 22px;
-    }
-    .hero__grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:20px;
-      align-items:center;
-    }
-    @media (max-width: 880px){
-      .hero__grid{ grid-template-columns: 1fr; }
-      .nav{ display:none; }
-    }
-
-    .heroCard{
-      background: linear-gradient(180deg, rgba(17,24,35,.92), rgba(14,22,34,.92));
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    /* Hero banner plate (Hero style 3) */
-    .heroPlate{
-      position:relative;
-      padding:26px 20px 20px;
-    }
-    .heroPlate__bg{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      opacity: .94;
-      filter: saturate(1.05) contrast(1.02);
-    }
-    .heroPlate__overlay{
+    /* Dark overlay + subtle vignette for readability */
+    .bg::after{
+      content:"";
       position:absolute; inset:0;
-      background: linear-gradient(90deg, rgba(11,15,20,.86), rgba(11,15,20,.56) 60%, rgba(11,15,20,.78));
+      background:
+        radial-gradient(ellipse at center, rgba(0,0,0,0.20), rgba(0,0,0,0.75)),
+        linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.65));
     }
-    .heroPlate__content{
-      position:relative;
+
+    /* Main layout */
+    .wrap{
+      position: relative;
+      min-height: 100vh;
       display:flex;
-      gap:16px;
-      align-items:center;
-    }
-    .crest{
-      width:78px; height:78px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.15);
-      padding:8px;
-    }
-    .heroTitle{
-      margin:0;
-      font-size:40px;
-      line-height:1.05;
-      letter-spacing:.6px;
-      font-weight:950;
-    }
-    .heroSubtitle{
-      margin:8px 0 0;
-      color: rgba(230,233,239,.92);
-      font-weight:700;
-    }
-    .pillRow{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-top:14px;
-    }
-    .pill{
-      display:inline-flex;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      color: var(--muted);
-      font-size:13px;
-      font-weight:800;
-      letter-spacing:.3px;
-    }
-    .pill strong{ color: var(--text); }
-
-    .heroBody{
-      padding:18px 20px 22px;
-      border-top:1px solid var(--line);
-    }
-    .lead{
-      margin:0;
-      font-size:16px;
-      color: rgba(230,233,239,.92);
-    }
-    .heroActions{
-      margin-top:16px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .sideCard{
-      background: rgba(17,24,35,.72);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding:18px;
-    }
-    .sideCard h3{ margin:0 0 8px; font-size:18px; }
-    .sideCard p{ margin:0; color: var(--muted); }
-    .kvs{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:10px;
-    }
-    .kv{
-      padding:12px 12px;
-      border-radius: var(--radius2);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      font-size:14px;
-    }
-    .kv span{ color: var(--muted); font-weight:700; }
-    .kv strong{ font-weight:900; }
-
-    /* Sections */
-    section{
-      padding:54px 0;
-      border-top:1px solid rgba(255,255,255,.06);
-    }
-    .section--alt{
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.00));
-    }
-    .sectionHead{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:14px;
-      margin-bottom:18px;
-      flex-wrap:wrap;
-    }
-    .sectionHead h2{
-      margin:0;
-      font-size:28px;
-      letter-spacing:.3px;
-    }
-    .sectionHead p{
-      margin:0;
-      color: var(--muted);
-      max-width: 640px;
-    }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:16px;
-    }
-    @media (max-width: 880px){
-      .grid2{ grid-template-columns: 1fr; }
-    }
-
-    .card{
-      background: rgba(17,24,35,.62);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding:16px;
-      box-shadow: var(--shadow);
-    }
-    .card h3{ margin:0 0 6px; font-size:18px; }
-    .card p{ margin:0; color: var(--muted); }
-
-    .pillars{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-      margin-top: 14px;
-    }
-    @media (max-width: 880px){
-      .pillars{ grid-template-columns: 1fr; }
-    }
-    .pillar{
-      background: rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      padding:16px;
-    }
-    .pillar h4{
-      margin:0 0 6px;
-      font-size:16px;
-      letter-spacing:.2px;
-    }
-    .pillar p{
-      margin:0;
-      color: var(--muted);
-      font-size:14px;
-    }
-    .accentLine{
-      height:3px;
-      width:100%;
-      margin-top:12px;
-      border-radius:999px;
-      background: linear-gradient(90deg, var(--accent), rgba(216,178,92,.70));
-      opacity:.85;
-    }
-
-    /* About image */
-    .aboutRow{
-      display:grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap:16px;
-      align-items:center;
-    }
-    @media (max-width: 880px){
-      .aboutRow{ grid-template-columns: 1fr; }
-    }
-    .aboutImg{
-      width:100%;
-      height:auto;
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      box-shadow: var(--shadow);
-    }
-
-    /* Screenshots grid */
-    .shots{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap:10px;
-    }
-    @media (max-width: 980px){ .shots{ grid-template-columns: repeat(3, 1fr);} }
-    @media (max-width: 700px){ .shots{ grid-template-columns: repeat(2, 1fr);} }
-
-    .shotBtn{
-      border:0;
-      padding:0;
-      background: transparent;
-      cursor:pointer;
-      border-radius: 14px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.10);
-      position:relative;
-    }
-    .shotBtn img{
-      display:block;
-      width:100%;
-      height:auto;
-      transition: transform .18s ease;
-    }
-    .shotBtn:hover img{ transform: scale(1.03); }
-
-    /* Lightbox modal */
-    .lightbox{
-      position:fixed;
-      inset:0;
-      display:none;
       align-items:center;
       justify-content:center;
-      background: rgba(0,0,0,.78);
-      z-index: 50;
-      padding:18px;
+      padding: 24px;
     }
-    .lightbox[aria-hidden="false"]{ display:flex; }
-    .lightbox__panel{
-      width:min(1100px, 100%);
-      background: rgba(11,15,20,.92);
-      border:1px solid rgba(255,255,255,.14);
-      border-radius: var(--radius);
+
+    .stage{
+      position: relative;
+      width: min(880px, 92vw);
+      height: min(680px, 80vh);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* Center card */
+    .center{
+      position: relative;
+      width: min(420px, 86vw);
+      padding: 22px 22px 18px;
+      border-radius: 22px;
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      backdrop-filter: blur(var(--blur));
       box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
+      text-align:center;
     }
-    .lightbox__bar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 12px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .lightbox__title{
-      font-size:13px;
-      color: var(--muted);
-      font-weight:800;
-      letter-spacing:.2px;
-      margin:0;
-    }
-    .iconBtn{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      font-weight:900;
-      border-radius:12px;
-      padding:8px 10px;
-      cursor:pointer;
-    }
-    .iconBtn:hover{ background: rgba(255,255,255,.10); }
-    .lightbox__img{
-      width:100%;
-      height:auto;
+
+    .crest{
+      width: 170px;
+      height: 170px;
+      object-fit: contain;
       display:block;
-      background: #000;
-    }
-    .lightbox__hint{
-      padding:10px 12px 12px;
-      color: var(--muted);
-      font-size:13px;
+      margin: 0 auto 12px;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,0.55));
     }
 
-    /* Contact */
-    .form{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top:10px;
+    h1{
+      margin: 6px 0 2px;
+      font-size: 34px;
+      letter-spacing: 0.04em;
     }
-    @media (max-width: 880px){
-      .form{ grid-template-columns: 1fr; }
+    .tag{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
-    label{ display:block; font-size:13px; color: var(--muted); font-weight:800; margin-bottom:6px; }
-    input, textarea{
-      width:100%;
-      padding:11px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+
+    /* Floating tabs arranged around the center */
+    .orbit{
+      position: absolute;
+      inset: 0;
+      pointer-events: none; /* allow only buttons to receive clicks */
+    }
+
+    .tab{
+      pointer-events: auto;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-decoration: none;
       color: var(--text);
-      outline:none;
+      padding: 12px 14px;
+      min-width: 160px;
+      text-align: center;
+      border-radius: 999px;
+      background: rgba(15,15,22,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(var(--blur));
+      box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      user-select: none;
     }
-    textarea{ min-height:140px; resize: vertical; }
-    input:focus, textarea:focus{
-      border-color: rgba(216,178,92,.55);
-      box-shadow: 0 0 0 4px rgba(216,178,92,.12);
+    .tab:hover{
+      background: rgba(20,20,30,0.70);
+      border-color: rgba(255,255,255,0.28);
+      transform: translate(-50%, -50%) scale(1.04);
     }
-    .formRowFull{ grid-column: 1 / -1; }
 
-    /* Footer */
-    footer{
-      padding:28px 0;
-      border-top:1px solid rgba(255,255,255,.08);
-      color: var(--muted);
-      font-size:14px;
-    }
-    .footerRow{
+    /* Positions: 5 around a circle */
+    .t1{ transform: translate(-50%, -50%) translate(calc(var(--ring) * 0),    calc(var(--ring) * -1)); } /* top */
+    .t2{ transform: translate(-50%, -50%) translate(calc(var(--ring) * 0.95), calc(var(--ring) * -0.10)); } /* upper-right */
+    .t3{ transform: translate(-50%, -50%) translate(calc(var(--ring) * 0.58), calc(var(--ring) * 0.86)); }  /* lower-right */
+    .t4{ transform: translate(-50%, -50%) translate(calc(var(--ring) * -0.58),calc(var(--ring) * 0.86)); }  /* lower-left */
+    .t5{ transform: translate(-50%, -50%) translate(calc(var(--ring) * -0.95),calc(var(--ring) * -0.10)); } /* upper-left */
+
+    /* Footer mini */
+    .footer{
+      position: fixed;
+      left: 0; right: 0; bottom: 10px;
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
+      justify-content:center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.65);
+      padding: 0 14px;
+      text-align:center;
+      pointer-events:none;
     }
-    .footerBrand{
-      display:flex;
-      align-items:center;
-      gap:10px;
+
+    /* Mobile: stack tabs under the center */
+    @media (max-width: 720px){
+      :root{ --ring: 0px; }
+      .stage{ height: auto; padding: 60px 0 90px; }
+      .orbit{ position: static; inset: auto; width: 100%; margin-top: 16px; pointer-events: auto; }
+      .tab{
+        position: static;
+        transform: none !important;
+        display:block;
+        margin: 10px auto;
+        width: min(360px, 92vw);
+      }
     }
-    .footerBrand img{ width:26px; height:26px; border-radius:9px; }
-    .footerLinks{
-      display:flex; gap:12px; flex-wrap:wrap;
-    }
-    .footerLinks a{ color: var(--muted); text-decoration:none; }
-    .footerLinks a:hover{ color: var(--text); }
   </style>
 </head>
-
 <body>
+  <div class="bg" aria-hidden="true"></div>
 
-  <!-- Top bar -->
-  <div class="topbar">
-    <div class="container topbar__inner">
-      <a class="brand" href="#top" aria-label="Go to top">
-        <img src="assets/branding/crest.png" alt="Sector 7 crest" width="100" />
-        <div>
-          <span class="brand__text">Sector 7</span>
-          <span class="brand__tag">(EXL7D)</span>
-        </div>
-      </a>
-
-      <nav class="nav" aria-label="Site">
-        <a href="#about">About</a>
-        <a href="#mission">Mission</a>
-        <a href="#recruitment">Recruitment</a>
-        <a href="#screenshots">Screenshots</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <a class="btn btn--primary" href="https://discord.gg/vYb6T3ej" target="_blank" rel="noopener">Join Discord</a>
-    </div>
-  </div>
-
-  <!-- Hero -->
-  <header id="top" class="hero">
-    <div class="container hero__grid">
-
-      <div class="heroCard">
-        <div class="heroPlate">
-          <!-- Hero style 3: banner plate PNG -->
-          <img class="heroPlate__bg" src="assets/branding/hero-plate.png" alt="Sector 7 banner plate background" width="1920" height="520" />
-          <div class="heroPlate__overlay"></div>
-
-          <div class="heroPlate__content">
-            <img class="crest" src="assets/branding/crest.png" alt="Sector 7 crest" width="150" />
-            <div>
-              <h1 class="heroTitle">Sector 7 <span style="font-size:.46em; font-weight:900; color:rgba(230,233,239,.92);">(EXL7D)</span></h1>
-              <p class="heroSubtitle">Dynamis / Kraken • Free Company</p>
-              <div class="pillRow" aria-label="Highlights">
-                <span class="pill"><strong>Welcoming</strong> community</span>
-                <span class="pill">Actively recruiting</span>
-                <span class="pill">No strict requirements</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="heroBody">
-          <p class="lead">
-            Sector 7 (EXL7D) is a friendly, relaxed Free Company where real life comes first.
-            Whether you’re new, returning, or veteran — we’re here to enjoy FFXIV together.
-          </p>
-
-          <div class="heroActions">
-            <a class="btn btn--primary" href="https://discord.gg/vYb6T3ej" target="_blank" rel="noopener">Join Discord</a>
-            <a class="btn" href="#recruitment">Recruitment Info</a>
-            <a class="btn" href="#screenshots">View Screenshots</a>
-          </div>
-        </div>
+  <main class="wrap">
+    <section class="stage">
+      <div class="center" role="banner">
+        <img class="crest" src="assets/crest.png" alt="Sector 7 crest" />
+        <h1>SECTOR 7</h1>
+        <p class="tag">EXL7D • FFXIV Free Company</p>
       </div>
 
-      <aside class="sideCard" aria-label="Quick info">
-        <h3>Quick Info</h3>
-        <p>Everything you need at a glance.</p>
-
-        <div class="kvs">
-          <div class="kv"><span>Server</span><strong>Dynamis / Kraken</strong></div>
-          <div class="kv"><span>House</span><strong>Lavender Beds — W18 / P1</strong></div>
-          <div class="kv"><span>Recruitment</span><strong>Open</strong></div>
-        </div>
-
-        <div style="margin-top:14px;">
-          <a class="btn" href="#contact">Contact Us</a>
-        </div>
-
-        <div class="accentLine" aria-hidden="true"></div>
-        <p style="margin:12px 0 0; color:var(--muted); font-size:13px;">
-          Tip: add your Lodestone link later (optional).
-        </p>
-      </aside>
-
-    </div>
-  </header>
-
-  <!-- About -->
-  <section id="about" class="section--alt">
-    <div class="container">
-      <div class="sectionHead">
-        <div>
-          <h2>About Sector 7</h2>
-          <p>
-            A welcoming Free Company built around respect, helpfulness, and enjoying the game without pressure.
-          </p>
-        </div>
+      <div class="orbit" aria-label="Navigation">
+        <!-- EDIT THESE: labels + href links -->
+        <a class="tab t1" href="https://example.com" target="_blank" rel="noopener">Recruitment</a>
+        <a class="tab t2" href="https://example.com" target="_blank" rel="noopener">Discord</a>
+        <a class="tab t3" href="https://example.com" target="_blank" rel="noopener">Events</a>
+        <a class="tab t4" href="https://example.com" target="_blank" rel="noopener">Gallery</a>
+        <a class="tab t5" href="https://example.com" target="_blank" rel="noopener">Contact</a>
       </div>
+    </section>
+  </main>
 
-      <div class="aboutRow">
-        <img
-          class="aboutImg"
-          src="assets/branding/about-image.png"
-          alt="Sector 7 about section image"
-          width="600"
-          height="360"
-        />
-
-        <div class="card">
-          <h3>Who we are</h3>
-          <p>
-            We’re a casual, community-first FC on Dynamis/Kraken. We keep it friendly, we keep it chill,
-            and we help each other out — from questions and dungeons to maps and laughs.
-          </p>
-
-          <div style="height:12px;"></div>
-
-          <h3>What to expect</h3>
-          <p>
-            No strict gaming requirements. Jump in when you can, be respectful, and enjoy the ride.
-          </p>
-
-          <div class="accentLine" aria-hidden="true"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Mission -->
-  <section id="mission">
-    <div class="container">
-      <div class="sectionHead">
-        <div>
-          <h2>Our Mission</h2>
-          <p>Simple values that keep the FC welcoming and fun.</p>
-        </div>
-      </div>
-
-      <div class="pillars">
-        <div class="pillar">
-          <h4>Welcome Everyone</h4>
-          <p>New, returning, and veteran players all belong here.</p>
-        </div>
-        <div class="pillar">
-          <h4>Be Helpful</h4>
-          <p>Answer questions, share tips, and support each other.</p>
-        </div>
-        <div class="pillar">
-          <h4>Keep It Chill</h4>
-          <p>Real life first — no pressure, just good vibes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Recruitment -->
-  <section id="recruitment" class="section--alt">
-    <div class="container">
-      <div class="sectionHead">
-        <div>
-          <h2>Recruitment</h2>
-          <p>We’re actively recruiting. If you want a friendly FC with no strict requirements, you’ll fit right in.</p>
-        </div>
-      </div>
-
-      <div class="grid2">
-        <div class="card">
-          <h3>Best fit for</h3>
-          <p style="margin-top:8px; color:var(--muted);">
-            • Players who want a relaxed community<br />
-            • People who like helping (or learning!)<br />
-            • Anyone who wants friends for content and downtime
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>How to join</h3>
-          <p style="margin-top:8px; color:var(--muted);">
-            1) Join our Discord<br />
-            2) Say hello and tell us you’re on Kraken<br />
-            3) We’ll help you with the in-game invite
-          </p>
-
-          <div style="margin-top:12px;">
-            <a class="btn btn--primary" href="https://discord.gg/vYb6T3ej" target="_blank" rel="noopener">Join Discord</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Screenshots -->
-  <section id="screenshots">
-    <div class="container">
-      <div class="sectionHead">
-        <div>
-          <h2>Screenshots</h2>
-          <p>Click any screenshot to view it full size.</p>
-        </div>
-      </div>
-
-      <div class="shots" aria-label="Screenshot gallery">
-        <!-- Add/remove as many as you want. Keep PNG only. -->
-        <button class="shotBtn" type="button" data-full="assets/screenshots/shot-01.png" data-title="Sector 7 Screenshot 01">
-          <img src="assets/screenshots/shot-01-thumb.png" alt="Sector 7 screenshot 01" width="420" height="260" loading="lazy" />
-        </button>
-
-        <button class="shotBtn" type="button" data-full="assets/screenshots/shot-02.png" data-title="Sector 7 Screenshot 02">
-          <img src="assets/screenshots/shot-02-thumb.png" alt="Sector 7 screenshot 02" width="420" height="260" loading="lazy" />
-        </button>
-
-        <button class="shotBtn" type="button" data-full="assets/screenshots/shot-03.png" data-title="Sector 7 Screenshot 03">
-          <img src="assets/screenshots/shot-03-thumb.png" alt="Sector 7 screenshot 03" width="420" height="260" loading="lazy" />
-        </button>
-
-        <button class="shotBtn" type="button" data-full="assets/screenshots/shot-04.png" data-title="Sector 7 Screenshot 04">
-          <img src="assets/screenshots/shot-04-thumb.png" alt="Sector 7 screenshot 04" width="420" height="260" loading="lazy" />
-        </button>
-
-        <button class="shotBtn" type="button" data-full="assets/screenshots/shot-05.png" data-title="Sector 7 Screenshot 05">
-          <img src="assets/screenshots/shot-05-thumb.png" alt="Sector 7 screenshot 05" width="420" height="260" loading="lazy" />
-        </button>
-
-        <button class="shotBtn" type="button" data-full="assets/screenshots/shot-06.png" data-title="Sector 7 Screenshot 06">
-          <img src="assets/screenshots/shot-06-thumb.png" alt="Sector 7 screenshot 06" width="420" height="260" loading="lazy" />
-        </button>
-
-        <button class="shotBtn" type="button" data-full="assets/screenshots/shot-07.png" data-title="Sector 7 Screenshot 07">
-          <img src="assets/screenshots/shot-07-thumb.png" alt="Sector 7 screenshot 07" width="420" height="260" loading="lazy" />
-        </button>
-
-        <button class="shotBtn" type="button" data-full="assets/screenshots/shot-08.png" data-title="Sector 7 Screenshot 08">
-          <img src="assets/screenshots/shot-08-thumb.png" alt="Sector 7 screenshot 08" width="420" height="260" loading="lazy" />
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="section--alt">
-    <div class="container">
-      <div class="sectionHead">
-        <div>
-          <h2>Contact Us</h2>
-          <p>Send us a message — your email client will open with the details filled in.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <form id="contactForm">
-          <div class="form">
-            <div>
-              <label for="name">Your name</label>
-              <input id="name" name="name" type="text" placeholder="Name" required />
-            </div>
-
-            <div>
-              <label for="email">Your email</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" required />
-            </div>
-
-            <div class="formRowFull">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" placeholder="Tell us a bit about yourself, what you enjoy in FFXIV, and what you're looking for in an FC." required></textarea>
-            </div>
-
-            <div class="formRowFull" style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn btn--primary" type="submit">Send Message</button>
-              <a class="btn" href="mailto:xtechoverloadx@gmail.com?subject=Sector%207%20(EXL7D)%20Website%20Contact">Email Directly</a>
-              <a class="btn" href="https://discord.gg/vYb6T3ej" target="_blank" rel="noopener">Join Discord</a>
-            </div>
-          </div>
-        </form>
-
-        <p style="margin:12px 0 0; color:var(--muted); font-size:13px;">
-          Note: This site is static (GitHub Pages). The form opens your email app; it doesn’t send from the website server.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container footerRow">
-      <div class="footerBrand">
-        <img src="assets/branding/crest.png" alt="Sector 7 crest" width="26" height="26" />
-        <div>
-          <div style="font-weight:900; color:var(--text);">Sector 7 (EXL7D)</div>
-          <div style="font-size:13px;">Dynamis / Kraken • Lavender Beds W18 / P1</div>
-        </div>
-      </div>
-
-      <div class="footerLinks">
-        <a href="#top">Top</a>
-        <a href="#screenshots">Screenshots</a>
-        <a href="#contact">Contact</a>
-        <a href="https://discord.gg/vYb6T3ej" target="_blank" rel="noopener">Discord</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Screenshot viewer">
-    <div class="lightbox__panel">
-      <div class="lightbox__bar">
-        <p class="lightbox__title" id="lightboxTitle">Screenshot</p>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <a class="iconBtn" id="lightboxOpenFull" href="#" target="_blank" rel="noopener">Open full</a>
-          <button class="iconBtn" type="button" id="lightboxClose" aria-label="Close">Close ✕</button>
-        </div>
-      </div>
-      <img class="lightbox__img" id="lightboxImg" src="" alt="Full size screenshot" />
-      <div class="lightbox__hint">Tip: press <strong>Esc</strong> to close.</div>
-    </div>
+  <div class="footer">
+    © <span id="y"></span> Sector 7 (EXL7D) • Unofficial fan site
   </div>
 
   <script>
-    // Screenshot Lightbox (B)
-    (function(){
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lightboxImg');
-      const lbTitle = document.getElementById('lightboxTitle');
-      const lbClose = document.getElementById('lightboxClose');
-      const lbOpenFull = document.getElementById('lightboxOpenFull');
-
-      function openLightbox(src, title){
-        lbImg.src = src;
-        lbTitle.textContent = title || 'Screenshot';
-        lbOpenFull.href = src;
-        lb.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeLightbox(){
-        lb.setAttribute('aria-hidden', 'true');
-        lbImg.src = '';
-        document.body.style.overflow = '';
-      }
-
-      document.querySelectorAll('.shotBtn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const src = btn.getAttribute('data-full');
-          const title = btn.getAttribute('data-title');
-          openLightbox(src, title);
-        });
-      });
-
-      lbClose.addEventListener('click', closeLightbox);
-
-      // Click outside the panel closes
-      lb.addEventListener('click', (e) => {
-        if(e.target === lb) closeLightbox();
-      });
-
-      // Esc closes
-      document.addEventListener('keydown', (e) => {
-        if(e.key === 'Escape' && lb.getAttribute('aria-hidden') === 'false'){
-          closeLightbox();
-        }
-      });
-    })();
-
-    // Contact form -> mailto (static-site friendly)
-    (function(){
-      const form = document.getElementById('contactForm');
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        const subject = encodeURIComponent('Sector 7 (EXL7D) Website Contact');
-        const body = encodeURIComponent(
-          `Name: ${name}\n` +
-          `Email: ${email}\n\n` +
-          `Message:\n${message}\n`
-        );
-
-        window.location.href = `mailto:xtechoverloadx@gmail.com?subject=${subject}&body=${body}`;
-      });
-    })();
+    document.getElementById("y").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
